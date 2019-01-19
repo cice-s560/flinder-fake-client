@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Auth callabck</title>
+</head>
+
+<body>
+    <h1>Bienvenido ususario con ID
+        <span id="user"></span>
+    </h1>
+
+    <div>
+        <span>Comprueba servidor</span>
+        <button id="check-server">Comprobar</button>
+    </div>
+
+    <script>
+
+        const url = new URL(window.top.location.href);
+        const token = url.searchParams.get("token");
+
+        const $checkServer = document.getElementById("check-server");
+        const $userVisor = document.getElementById("user");
+
+        const fetchConfig = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        function checkStatus(e) {
+            fetch("http://localhost:3001/check", fetchConfig)
+                .then(resp => resp.json())
+                .then(data => $userVisor.innerText = data.userId);
+        }
+
+        $checkServer.addEventListener("click", checkStatus);
+
+
+    </script>
+</body>
+
+</html>
