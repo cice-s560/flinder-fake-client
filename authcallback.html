@@ -35,7 +35,7 @@
         };
 
         function checkStatus(e) {
-            fetch("http://localhost:3001/check", fetchConfig)
+            fetch("http://flinder-cice.com:3001/check", fetchConfig)
                 .then(resp => resp.json())
                 .then(data => $userVisor.innerText = data.userId);
         }
